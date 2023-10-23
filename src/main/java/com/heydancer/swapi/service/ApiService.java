@@ -11,12 +11,10 @@ public class ApiService {
     private final PropertiesManager properties = PropertiesManager.getProperties();
     private final ObjectMapper mapper = new ObjectMapper();
 
-    String url = properties.getValue("base.url");
-
     public Film getById(final int id) {
         return given()
                 .header("Content-Type", ContentType.JSON)
-                .baseUri(url)
+                .baseUri(properties.getValue("base.url"))
                 .when()
                 .get(String.format("films/%d", id))
                 .getBody().as(Film.class);
